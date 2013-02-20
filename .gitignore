@@ -1,0 +1,7 @@
+target/
+.idea/
+*.iml
+*.local.json
+*.local.properties
+*.test.json
+*.test.properties
