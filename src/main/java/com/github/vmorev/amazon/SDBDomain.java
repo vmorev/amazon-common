@@ -85,7 +85,8 @@ public class SDBDomain extends AmazonService {
 
         for (Field field : fields) {
             String value = SDBDataHelper.convertValueToString(PropertyUtils.getProperty(obj, field.getName()), field.getType());
-            attributes.add(new ReplaceableAttribute().withName(field.getName()).withValue(value));
+            if (value != null)
+                attributes.add(new ReplaceableAttribute().withName(field.getName()).withValue(value));
         }
         return attributes;
     }
