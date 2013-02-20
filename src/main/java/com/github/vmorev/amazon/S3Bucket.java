@@ -62,7 +62,7 @@ public class S3Bucket extends AmazonService {
         try {
             obj = new ObjectMapper().readValue(getS3().getObject(name, key).getObjectContent(), clazz);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             //do nothing and return null
         }
         return obj;
