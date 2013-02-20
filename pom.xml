@@ -5,7 +5,7 @@
     <artifactId>amazon-common</artifactId>
     <packaging>jar</packaging>
     <name>amazon-common</name>
-    <version>0.2</version>
+    <version>0.3</version>
     <properties>
         <java.version>1.7</java.version>
         <java.sourceEncoding>UTF-8</java.sourceEncoding>
