@@ -22,12 +22,12 @@ public class ConfigStorage {
         if (checkLocalAndTest) {
             try {
                 localConfig = new ObjectMapper().readValue(ClassLoader.getSystemResource(configName.replace(".json", ".local.json")), clazz);
-            } catch (IOException e) {
+            } catch (Throwable e) {
                 //just ignore
             }
             try {
                 localConfig = new ObjectMapper().readValue(ClassLoader.getSystemResource(configName.replace(".json", ".test.json")), clazz);
-            } catch (IOException e) {
+            } catch (Throwable e) {
                 //just ignore
             }
             if (localConfig != null)
