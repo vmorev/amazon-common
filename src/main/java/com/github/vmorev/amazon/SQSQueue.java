@@ -15,30 +15,35 @@ import java.util.List;
  * Date: 14.02.13
  */
 public class SQSQueue extends AmazonService {
-    private static AmazonSQS sqs;
-    private String name;
+    private AmazonSQS sqs;
     private String url;
 
-    public static AmazonSQS getSQS() {
+    public SQSQueue() {
+        super();
+    }
+
+    public SQSQueue(String name) {
+        super();
+        setName(name);
+    }
+
+    public SQSQueue withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    public AmazonSQS getSQS() {
         if (sqs == null)
             sqs = new AmazonSQSClient(getCredentials(), new ClientConfiguration());
         return sqs;
     }
 
-    public static List<String> listQueues() {
+    public List<String> listQueues() {
         return listQueues(null);
     }
 
-    public static List<String> listQueues(String prefix) {
+    public List<String> listQueues(String prefix) {
         return getSQS().listQueues(new ListQueuesRequest(prefix)).getQueueUrls();
-    }
-
-    public SQSQueue(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void createQueue() {

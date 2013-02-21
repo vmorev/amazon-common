@@ -15,16 +15,29 @@ import java.util.List;
  * Date: 14.02.13
  */
 public class SDBDomain extends AmazonService {
-    private static AmazonSimpleDB sdb;
-    private String name;
+    private AmazonSimpleDB sdb;
 
-    public static AmazonSimpleDB getSDB() {
+    public SDBDomain() {
+        super();
+    }
+
+    public SDBDomain(String name) {
+        super();
+        setName(name);
+    }
+
+    public SDBDomain withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    public AmazonSimpleDB getSDB() {
         if (sdb == null)
             sdb = new AmazonSimpleDBClient(getCredentials());
         return sdb;
     }
 
-    public static void listDomains(ListFunc<String> func) throws Exception {
+    public void listDomains(ListFunc<String> func) throws Exception {
         String nextToken = null;
         do {
             ListDomainsResult result = getSDB().listDomains((new ListDomainsRequest()).withNextToken(nextToken));
@@ -33,17 +46,6 @@ public class SDBDomain extends AmazonService {
                 func.process(domainName);
             }
         } while (nextToken != null);
-    }
-
-    public SDBDomain(String name) {
-        //get name if url was provided instead of name
-        if (name.contains("/"))
-            name = name.substring(name.lastIndexOf("/") + 1, name.length());
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void createDomain() throws Exception {

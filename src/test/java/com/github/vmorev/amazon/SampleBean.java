@@ -1,15 +1,13 @@
 package com.github.vmorev.amazon;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: Valentin_Morev
  * Date: 20.02.13
  */
 public class SampleBean {
+    protected static Random random = new Random(System.currentTimeMillis());
     private String name;
     private String description;
     private List<String> tags = new ArrayList<>();
@@ -19,7 +17,7 @@ public class SampleBean {
     public static SampleBean getSampleBean() {
         SampleBean bean = new SampleBean();
         bean.setTimestamp(System.currentTimeMillis());
-        String modifier = "-" + bean.getTimestamp();
+        String modifier = "-" + random.nextLong();
         bean.setName("Test name" + modifier);
         bean.setDescription("Test description" + modifier);
         bean.getTags().add("Tag1" + modifier);

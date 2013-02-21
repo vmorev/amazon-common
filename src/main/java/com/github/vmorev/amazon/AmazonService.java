@@ -10,8 +10,15 @@ import com.amazonaws.auth.BasicAWSCredentials;
 public abstract class AmazonService {
     private static final String ACCESS_KEY = "accessKey";
     private static final String SECRET_KEY = "secretKey";
-    private static AWSCredentials credentials;
     private static AmazonConfig config;
+    private AWSCredentials credentials;
+    protected String accessKey;
+    protected String secretKey;
+    protected String name;
+
+    protected AmazonService() {
+        setCredentials(null, null);
+    }
 
     public static AmazonConfig getConfig() {
         if (config == null)
@@ -19,10 +26,30 @@ public abstract class AmazonService {
         return config;
     }
 
-    protected static AWSCredentials getCredentials() {
-        if (credentials == null)
-            credentials = new BasicAWSCredentials(getConfig().getValue(ACCESS_KEY), getConfig().getValue(SECRET_KEY));
+    protected AWSCredentials getCredentials() {
         return credentials;
+    }
+
+    public void setCredentials(String accessKey, String secretKey) {
+        if (accessKey != null) {
+            this.accessKey = accessKey;
+            this.secretKey = secretKey;
+        } else {
+            this.accessKey = getConfig().getValue(ACCESS_KEY);
+            this.secretKey = getConfig().getValue(SECRET_KEY);
+        }
+        credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        //get name if url was provided instead of name
+        if (name.contains("/"))
+            name = name.substring(name.lastIndexOf("/") + 1, name.length());
+        this.name = name;
     }
 
     public interface ListFunc<T> {
