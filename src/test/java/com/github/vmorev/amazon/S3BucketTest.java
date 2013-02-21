@@ -41,7 +41,7 @@ public class S3BucketTest {
 
     @Test
     public void testListBuckets() {
-        List<Bucket> buckets = S3Bucket.listBuckets();
+        List<Bucket> buckets = new S3Bucket().listBuckets();
         assertThat(buckets.size(), greaterThan(0));
 
         boolean match = false;

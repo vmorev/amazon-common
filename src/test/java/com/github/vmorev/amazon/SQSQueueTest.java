@@ -42,7 +42,7 @@ public class SQSQueueTest {
     @Test
     public void testListQueues() throws IOException {
         String queueUrl = testQueue.getUrl();
-        List<String> queueUrls = SQSQueue.getSQS().listQueues(new ListQueuesRequest(testQueue.getName())).getQueueUrls();
+        List<String> queueUrls = new SQSQueue().getSQS().listQueues(new ListQueuesRequest(testQueue.getName())).getQueueUrls();
         assertThat(queueUrl, isIn(queueUrls));
     }
 

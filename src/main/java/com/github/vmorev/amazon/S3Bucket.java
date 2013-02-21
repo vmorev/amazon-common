@@ -18,25 +18,35 @@ import java.util.List;
  * Date: 14.02.13
  */
 public class S3Bucket extends AmazonService {
-    private static AmazonS3 s3;
-    private String name;
+    private AmazonS3 s3;
 
-    public static AmazonS3 getS3() {
+    public S3Bucket() {
+        super();
+    }
+
+    public S3Bucket(String name) {
+        super();
+        setName(name);
+    }
+
+    public S3Bucket withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    public S3Bucket withCredentials(String accessKey, String secretKey) {
+        setCredentials(accessKey, secretKey);
+        return this;
+    }
+
+    public AmazonS3 getS3() {
         if (s3 == null)
             s3 = new AmazonS3Client(getCredentials());
         return s3;
     }
 
-    public static List<Bucket> listBuckets() {
+    public List<Bucket> listBuckets() {
         return getS3().listBuckets();
-    }
-
-    public S3Bucket(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void createBucket() {
